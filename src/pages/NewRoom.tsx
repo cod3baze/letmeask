@@ -6,7 +6,7 @@ import { Button } from "../components/Button";
 
 import "../styles/auth.scss";
 
-const NewRoom = () => {
+export function NewRoom() {
   return (
     <div id="page-auth">
       <aside>
@@ -23,7 +23,6 @@ const NewRoom = () => {
         <div className="main-content">
           <img draggable={false} src={logoImg} alt="letmeask" />
           <h2>Criar uma nova sala</h2>
-          <div className="separator">ou entre em uma outra sala</div>
           <form>
             <input placeholder="Nome da sala" type="text" />
             <Button type="submit">Criar sala</Button>
@@ -35,6 +34,4 @@ const NewRoom = () => {
       </main>
     </div>
   );
-};
-
-export { NewRoom };
+}
