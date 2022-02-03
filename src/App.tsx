@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from "./contexts/auth";
@@ -7,15 +8,19 @@ import { Room } from "./pages/Room";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/rooms/new" element={<NewRoom />} />
-          <Route path="/rooms/:id" element={<Room />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <>
+      <Toaster />
+
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/rooms/new" element={<NewRoom />} />
+            <Route path="/rooms/:id" element={<Room />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </>
   );
 };
 
