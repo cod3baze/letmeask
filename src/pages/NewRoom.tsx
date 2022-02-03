@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import illustrationImg from "../assets/illustration.svg";
 import logoImg from "../assets/logo.svg";
 import { Button } from "../components/Button";
-import { useAuthProvider } from "../contexts/auth";
+// import { useAuthProvider } from "../contexts/auth";
 
 import "../styles/auth.scss";
 
 export function NewRoom() {
-  const { user } = useAuthProvider();
+  // const { user } = useAuthProvider();
 
   return (
     <div id="page-auth">
@@ -23,7 +23,6 @@ export function NewRoom() {
       </aside>
 
       <main>
-        <h1>hello, {user.name}</h1>
         <div className="main-content">
           <img draggable={false} src={logoImg} alt="letmeask" />
           <h2>Criar uma nova sala</h2>
