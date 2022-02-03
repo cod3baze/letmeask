@@ -4,22 +4,22 @@ import googleIconImg from "../assets/google-icon.svg";
 import illustrationImg from "../assets/illustration.svg";
 import logoImg from "../assets/logo.svg";
 import { Button } from "../components/Button";
-import { auth, Firebase } from "../services/firebase";
+import { useAuthProvider } from "../contexts/auth";
 
 import "../styles/auth.scss";
 
 export function Home() {
   const history = useNavigate();
 
-  function handleCreateRoom() {
-    const provider = new Firebase.auth.GoogleAuthProvider();
+  const { user, signInWithGoogle } = useAuthProvider();
 
+  async function handleCreateRoom() {
     try {
-      auth.signInWithPopup(provider).then((result) => {
-        console.log(result);
+      if (!user.id) {
+        await signInWithGoogle();
+      }
 
-        history("/rooms/new");
-      });
+      history("/rooms/new");
     } catch (error: any) {
       console.log(error.message);
     }
