@@ -4,17 +4,24 @@ import googleIconImg from "../assets/google-icon.svg";
 import illustrationImg from "../assets/illustration.svg";
 import logoImg from "../assets/logo.svg";
 import { Button } from "../components/Button";
+import { auth, Firebase } from "../services/firebase";
 
 import "../styles/auth.scss";
 
 export function Home() {
   const history = useNavigate();
 
-  function navigateToNewRoom() {
+  function handleCreateRoom() {
+    const provider = new Firebase.auth.GoogleAuthProvider();
+
     try {
-      history("/rooms/new");
+      auth.signInWithPopup(provider).then((result) => {
+        console.log(result);
+
+        history("/rooms/new");
+      });
     } catch (error: any) {
-      alert(error.message);
+      console.log(error.message);
     }
   }
 
@@ -34,7 +41,7 @@ export function Home() {
         <div className="main-content">
           <img draggable={false} src={logoImg} alt="letmeask" />
           <button
-            onClick={navigateToNewRoom}
+            onClick={handleCreateRoom}
             className="create-room"
             type="button"
           >
