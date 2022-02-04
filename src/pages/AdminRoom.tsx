@@ -1,6 +1,5 @@
 /* eslint-disable no-alert */
-
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import deleteImg from "../assets/delete.svg";
 import logoImg from "../assets/logo.svg";
@@ -19,6 +18,7 @@ type RoomRouteParams = {
 export function AdminRoom() {
   const params = useParams<RoomRouteParams>();
   const roomId = params?.id as string;
+  const history = useNavigate();
 
   const { questions, title } = useRoom(roomId);
 
@@ -26,6 +26,14 @@ export function AdminRoom() {
     if (window.confirm("Tem certeza que você deseja excluir esta pergunta?")) {
       await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
     }
+  }
+
+  async function handleEndRoom() {
+    await database.ref(`rooms/${roomId}`).update({
+      endedAt: new Date(),
+    });
+
+    history("/");
   }
 
   return (
@@ -36,7 +44,7 @@ export function AdminRoom() {
 
           <div>
             <RoomCode code={roomId} />
-            <Button isOutlined type="button">
+            <Button isOutlined type="button" onClick={() => handleEndRoom()}>
               Encerrar sala
             </Button>
           </div>
