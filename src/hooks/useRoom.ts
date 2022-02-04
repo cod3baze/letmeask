@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 
 import { useAuthProvider } from "../contexts/auth";
@@ -13,7 +14,6 @@ type QuestionType = {
   isHighlighted: boolean;
   isAnswered: boolean;
   likeCount: number;
-  hasLiked: boolean;
   likes: Record<
     string,
     {
@@ -22,7 +22,9 @@ type QuestionType = {
   >;
 };
 
-type IQuestion = Omit<QuestionType, "likes">;
+type IQuestion = Omit<QuestionType, "likes"> & {
+  likeId: string | undefined;
+};
 
 type FirebaseQuestions = Record<string, QuestionType>;
 
@@ -48,9 +50,9 @@ export function useRoom(roomId: string) {
             isHighlighted: value.isHighlighted,
             isAnswered: value.isAnswered,
             likeCount: Object.values(value.likes ?? {}).length,
-            hasLiked: Object.values(value.likes ?? {}).some(
-              (like) => like.authorId === user?.id
-            ),
+            likeId: Object.entries(value.likes ?? {}).find(
+              ([_, like]) => like.authorId === user?.id
+            )?.[0],
           };
         }
       );
