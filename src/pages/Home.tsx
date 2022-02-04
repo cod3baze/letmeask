@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 import googleIconImg from "../assets/google-icon.svg";
@@ -40,7 +41,7 @@ export function Home() {
       return;
     }
 
-    alert("Room does not exists");
+    toast.error("Room does not exists");
   }
 
   return (

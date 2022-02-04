@@ -1,5 +1,7 @@
 import "./styles.scss";
 
+import { ReactNode } from "react";
+
 type QuestionData = {
   id: string;
   content: string;
@@ -13,9 +15,13 @@ type QuestionData = {
 
 interface IQuestionProps {
   data: QuestionData;
+  children?: ReactNode;
 }
 
-export function Question({ data: { content, author } }: IQuestionProps) {
+export function Question({
+  children,
+  data: { content, author },
+}: IQuestionProps) {
   return (
     <div className="question">
       <p>{content}</p>
@@ -24,7 +30,7 @@ export function Question({ data: { content, author } }: IQuestionProps) {
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </div>
-        <div />
+        <div>{children}</div>
       </footer>
     </div>
   );
